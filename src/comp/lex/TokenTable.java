@@ -15,7 +15,6 @@ public class TokenTable {
      * Constructor. Creates and populates the hash table.
      */
     public TokenTable() {
-
         String[] lexemes = {
             "algoritmo",
             "fim_algoritmo",
@@ -150,7 +149,6 @@ public class TokenTable {
      * Searches for a lexeme and returns its token type (if any).
      *
      * @param lexeme Search key (lexeme).
-     *
      * @return Token type's value, or null if the lexeme doesn't exist.
      */
     public TokenType search(String lexeme) {

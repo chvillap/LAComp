@@ -2,6 +2,7 @@ package test.lex;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 
@@ -14,6 +15,13 @@ import comp.lex.TokenType;
  * Unit tests for the comp.lex.TokenTable class.
  */
 public class TokenTableTest {
+
+    @BeforeClass
+    public static void init() {
+        System.out.println("================================================");
+        System.out.println("TEST CLASS: comp.lex.TokenTableTest");
+        System.out.println("================================================");
+    }
 
     @Test
     public void testSearch() {
