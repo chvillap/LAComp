@@ -34,12 +34,16 @@ public class LexicalAnalyzer {
         int target = bufferPtr + count;
 
         // Move the pointer keeping track of the line number.
-        while (bufferPtr < target)
-            if (buffer[bufferPtr++] == '\n')
+        while (bufferPtr < target) {
+            if (currentChar() == '\n')
                 ++lineNumber;
-        while (bufferPtr > target)
-            if (buffer[bufferPtr--] == '\n')
+            ++bufferPtr;
+        }
+        while (bufferPtr > target) {
+            if (currentChar() == '\n')
                 --lineNumber;
+            --bufferPtr;
+        }
     }
 
     /**
@@ -49,7 +53,6 @@ public class LexicalAnalyzer {
         // Return the null character if the pointer is at an invalid position.
         if (bufferPtr < 0 || bufferPtr >= buffer.length)
             return '\0';
-
         return buffer[bufferPtr];
     }
 
@@ -87,9 +90,9 @@ public class LexicalAnalyzer {
         else if (character == '"')
             token = tokenizeString();
         else if (character == '_' || Character.isLetter(character))
-            token = tokenizeIdentifier();
+            token = tokenizeIdentifierOrKeyword();
         else
-            token = tokenizeKeywordOrSymbol();
+            token = tokenizeSymbol();
 
         // If no function can tokenize what comes next, then we have a
         // lexical error.
@@ -139,7 +142,7 @@ public class LexicalAnalyzer {
      * @return An identifier token, or null if something went wrong.
      * @throws LexicalException
      */
-    public Token tokenizeIdentifier() throws LexicalException {
+    public Token tokenizeIdentifierOrKeyword() throws LexicalException {
         final int STATE_END = 0;
         final int STATE_FIRST = 1;
         final int STATE_REST = 2;
@@ -197,8 +200,7 @@ public class LexicalAnalyzer {
      *     : '0'..'9'+
      *     ;
      * NUMERO_REAL
-     *     : ('0'..'9')+ '.' ('0'..'9')*
-     *     | '.' ('0'..'9')+
+     *     : ('0'..'9')+ '.' ('0'..'9')+
      *     ;
      *
      * @return A numerical token, or null if something went wrong.
@@ -308,7 +310,7 @@ public class LexicalAnalyzer {
             switch (state) {
                 case STATE_BEGIN:
                     // We already know that the current character is the double
-                    // quote that begins the string. So just add this character
+                    // quote that starts the string. So just add this character
                     // to the builder and move on to the next state.
                     builder.append(character);
                     moveBufferPtr(1);
@@ -321,6 +323,8 @@ public class LexicalAnalyzer {
                         // has ended. So we just add this character to the
                         // builder and move on to the end state.
                         builder.append(character);
+                        String lexeme = builder.toString();
+                        token = new Token(TokenType.STRING_LITERAL, lexeme);
                         moveBufferPtr(1);
                         state = STATE_END;
                     } else if (character == '\0' || character == '\n') {
@@ -355,7 +359,7 @@ public class LexicalAnalyzer {
      * @return An identifier token, or null if something went wrong.
      * @throws LexicalException
      */
-    public Token tokenizeKeywordOrSymbol() throws LexicalException {
+    public Token tokenizeSymbol() throws LexicalException {
         final int STATE_END = 0;
         final int STATE_FIRST = 1;
         final int STATE_SECOND = 2;
@@ -386,8 +390,8 @@ public class LexicalAnalyzer {
                             token = new Token(type, lexeme);
                         state = STATE_END;
                         // If the lexeme doesn't represent any valid keyword
-                        // or symbo, then we a lexical error is raised (as
-                        // assured by the null return value).
+                        // or symbol, a lexical error will be raised (as
+                        // assured by the null token that will be returned).
                     }
                     break;
 
