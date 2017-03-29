@@ -388,6 +388,7 @@ public class LexicalAnalyzer {
                         TokenType type = tokenTable.search(lexeme);
                         if (type != null)
                             token = new Token(type, lexeme);
+                        moveBufferPtr(1);
                         state = STATE_END;
                         // If the lexeme doesn't represent any valid keyword
                         // or symbol, a lexical error will be raised (as

@@ -7,6 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import comp.lex.LexicalAnalyzer;
+import comp.lex.LexicalException;
+import comp.lex.Token;
+
 /**
  * Main class of the LA Compiler.
  */
@@ -24,13 +28,23 @@ public class LAComp {
             System.exit(1);
         }
 
-        String inputCode = readInputFile(args[1]);
+        String inputCode = readInputFile(args[0]);
 
         // Main loop.
-        // ...
+        LexicalAnalyzer lexical = new LexicalAnalyzer(inputCode);
+        try {
+            while (true) {
+                Token token = lexical.nextToken();
+                if (token == null)
+                    break;
+                System.out.println(token);
+            }
+        } catch (LexicalException e) {
+            System.err.println(e.getMessage());
+        }
 
         String outputCode = "/* nothing */";
-        writeOutputFile(args[2], outputCode);
+        writeOutputFile(args[1], outputCode);
 
         System.out.println("Compilation finished");
     }
@@ -43,10 +57,9 @@ public class LAComp {
      */
     public static String readInputFile(String path) {
 
-        StringBuilder builder = new StringBuilder();
-
         // Read the file line by line and save the input code into a string.
         // If any exception occurs, print an error message and exit.
+        StringBuilder builder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line = null;
             while ((line = reader.readLine()) != null)
