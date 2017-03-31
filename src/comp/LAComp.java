@@ -25,7 +25,7 @@ public class LAComp
      * @param path Path to the input file.
      * @return Input code as a string.
      */
-    public static String readInputFile(String path)
+    public String readInputFile(String path)
     {
         // Read the file line by line and save the input code into a string.
         // If any exception occurs, print an error message and exit.
@@ -46,9 +46,8 @@ public class LAComp
      * Writes the output code to a file.
      *
      * @param path Path to the output file.
-     * @param code Contents of the output code.
      */
-    public static void writeOutputFile(String path, String code)
+    public void writeOutputFile(String path, String code)
     {
         // Write the whole contents in the file at once.
         // If any exception occurs, print an error message and exit.
