@@ -322,22 +322,7 @@ public class LexicalAnalyzerTest {
     }
 
     @Test
-    public void testCompilationSuccessful() {
-
-    }
-
-    @Test
-    public void testUnclosedCommentError() {
-
-    }
-
-    @Test
-    public void testUnclosedStringLiteralError() {
-
-    }
-
-    @Test
-    public void testUnidentifiedSymbolError() {
+    public void testRunLexicalAnalysis() {
 
     }
 

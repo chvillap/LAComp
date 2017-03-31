@@ -27,15 +27,17 @@ public class LACompTest {
 
     @Test
     public void testReadInputFile() {
+        LAComp compiler = new LAComp();
         String path = "input/comp/testReadInputFile.txt";
-        assertEquals("Line 1\nLine 2\n", LAComp.readInputFile(path));
+        assertEquals("Line 1\nLine 2\n", compiler.readInputFile(path));
     }
 
     @Test
     public void testWriteOutputFile() {
+        LAComp compiler = new LAComp();
         String path = "output/comp/testWriteOutputFile.txt";
-        LAComp.writeOutputFile(path, "Line 1\nLine 2\n");
-        assertEquals("Line 1\nLine 2\n", LAComp.readInputFile(path));
+        compiler.writeOutputFile(path, "Line 1\nLine 2\n");
+        assertEquals("Line 1\nLine 2\n", compiler.readInputFile(path));
     }
 
     @Test
