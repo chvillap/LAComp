@@ -6,8 +6,8 @@ import java.util.Scanner;
  * The lexical analyzer. It scans the input code and segment it into a
  * sequence of categorized tokens.
  */
-public class LexicalAnalyzer {
-
+public class LexicalAnalyzer
+{
     private char[] buffer;
     private int bufferPtr;
     private int lineNumber;
@@ -18,7 +18,8 @@ public class LexicalAnalyzer {
      *
      * @param code The whole input code as a string.
      */
-    public LexicalAnalyzer(String code) {
+    public LexicalAnalyzer(String code)
+    {
         buffer = code.toCharArray();
         bufferPtr = (buffer.length > 0) ? 0 : -1;
         lineNumber = 1;
@@ -30,7 +31,8 @@ public class LexicalAnalyzer {
      *
      * @param count Number of positions (negative to move backward).
      */
-    private void moveBufferPtr(int count) {
+    private void moveBufferPtr(int count)
+    {
         int target = bufferPtr + count;
 
         // Move the pointer keeping track of the line number.
@@ -49,7 +51,8 @@ public class LexicalAnalyzer {
     /**
      * Get the current character from buffer.
      */
-    private char currentChar() {
+    private char currentChar()
+    {
         // Return the null character if the pointer is at an invalid position.
         if (bufferPtr < 0 || bufferPtr >= buffer.length)
             return '\0';
@@ -62,7 +65,8 @@ public class LexicalAnalyzer {
      * @return A token of some kind, or null if something went wrong.
      * @throws LexicalException
      */
-    public Token nextToken() throws LexicalException {
+    public Token nextToken() throws LexicalException
+    {
         Token token = null;
         char character = currentChar();
 
@@ -114,7 +118,8 @@ public class LexicalAnalyzer {
      *
      * @throws LexicalException
      */
-    public void tokenizeComment() throws LexicalException {
+    public void tokenizeComment() throws LexicalException
+    {
         char character = currentChar();
 
         // A comment can end with closing brackets, or a new line, or EOF.
@@ -142,7 +147,8 @@ public class LexicalAnalyzer {
      * @return An identifier token, or null if something went wrong.
      * @throws LexicalException
      */
-    public Token tokenizeIdentifierOrKeyword() throws LexicalException {
+    public Token tokenizeIdentifierOrKeyword() throws LexicalException
+    {
         final int STATE_END = 0;
         final int STATE_FIRST = 1;
         final int STATE_REST = 2;
@@ -206,7 +212,8 @@ public class LexicalAnalyzer {
      * @return A numerical token, or null if something went wrong.
      * @throws LexicalException
      */
-    public Token tokenizeNumber() throws LexicalException {
+    public Token tokenizeNumber() throws LexicalException
+    {
         final int STATE_END = 0;
         final int STATE_INTEGER = 1;
         final int STATE_POINT = 2;
@@ -295,7 +302,8 @@ public class LexicalAnalyzer {
      * @return A string token, or null if something went wrong.
      * @throws LexicalException
      */
-    public Token tokenizeString() throws LexicalException {
+    public Token tokenizeString() throws LexicalException
+    {
         final int STATE_END = 0;
         final int STATE_BEGIN = 1;
         final int STATE_CONTENT = 2;
@@ -359,7 +367,8 @@ public class LexicalAnalyzer {
      * @return An identifier token, or null if something went wrong.
      * @throws LexicalException
      */
-    public Token tokenizeSymbol() throws LexicalException {
+    public Token tokenizeSymbol() throws LexicalException
+    {
         final int STATE_END = 0;
         final int STATE_FIRST = 1;
         final int STATE_SECOND = 2;

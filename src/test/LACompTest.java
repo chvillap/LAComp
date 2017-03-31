@@ -16,24 +16,27 @@ import comp.LAComp;
 /**
  * Unit tests for the comp.LAComp class.
  */
-public class LACompTest {
-
+public class LACompTest
+{
     @BeforeClass
-    public static void init() {
+    public static void init()
+    {
         System.out.println("================================================");
         System.out.println("TEST CLASS: comp.LACompTest");
         System.out.println("================================================");
     }
 
     @Test
-    public void testReadInputFile() {
+    public void testReadInputFile()
+    {
         LAComp compiler = new LAComp();
         String path = "input/comp/testReadInputFile.txt";
         assertEquals("Line 1\nLine 2\n", compiler.readInputFile(path));
     }
 
     @Test
-    public void testWriteOutputFile() {
+    public void testWriteOutputFile()
+    {
         LAComp compiler = new LAComp();
         String path = "output/comp/testWriteOutputFile.txt";
         compiler.writeOutputFile(path, "Line 1\nLine 2\n");
@@ -41,16 +44,19 @@ public class LACompTest {
     }
 
     @Test
-    public void testCompilationSuccess() {
+    public void testCompilationSuccess()
+    {
 
     }
 
     @Test
-    public void testCompilationFail() {
+    public void testCompilationFail()
+    {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         JUnitCore.main("test.LACompTest");
     }
 }

@@ -14,18 +14,19 @@ import comp.lex.TokenType;
 /**
  * Unit tests for the comp.lex.TokenTable class.
  */
-public class TokenTableTest {
-
+public class TokenTableTest
+{
     @BeforeClass
-    public static void init() {
+    public static void init()
+    {
         System.out.println("================================================");
         System.out.println("TEST CLASS: comp.lex.TokenTableTest");
         System.out.println("================================================");
     }
 
     @Test
-    public void testSearch() {
-
+    public void testSearch()
+    {
         TokenTable table = new TokenTable();
 
         String[] lexemes = {
@@ -152,12 +153,12 @@ public class TokenTableTest {
             TokenType.SYMBOL_CONCATENATION
         };
 
-        for (int i = 0; i < lexemes.length; ++i) {
+        for (int i = 0; i < lexemes.length; ++i)
             assertEquals(types[i], table.search(lexemes[i]));
-        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         JUnitCore.main("test.lex.TokenTableTest");
     }
 }

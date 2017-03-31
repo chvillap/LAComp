@@ -3,8 +3,8 @@ package comp.lex;
 /**
  * A single lexic token, described by its lexeme and type.
  */
-public class Token {
-
+public class Token
+{
     private TokenType type;
     private String lexeme;
 
@@ -14,7 +14,8 @@ public class Token {
      * @param type Value of the token type.
      * @param lexeme Lexeme string.
      */
-    public Token(TokenType type, String lexeme) {
+    public Token(TokenType type, String lexeme)
+    {
         this.type = type;
         this.lexeme = lexeme;
     }
@@ -22,14 +23,16 @@ public class Token {
     /**
      * Getter for type.
      */
-    public TokenType getType() {
+    public TokenType getType()
+    {
         return type;
     }
 
     /**
      * Getter for lexeme.
      */
-    public String getLexeme() {
+    public String getLexeme()
+    {
         return lexeme;
     }
 
@@ -38,7 +41,8 @@ public class Token {
      *
      * @return String in the format: "lexeme - category".
      */
-    public String toString() {
+    public String toString()
+    {
         switch (type) {
             case IDENTIFIER:
                 return lexeme + " - identificador";

@@ -18,20 +18,22 @@ import comp.lex.TokenType;
 /**
  * Unit tests for the comp.lex.LexicalAnalyzer class.
  */
-public class LexicalAnalyzerTest {
-
+public class LexicalAnalyzerTest
+{
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @BeforeClass
-    public static void init() {
+    public static void init()
+    {
         System.out.println("================================================");
         System.out.println("TEST CLASS: comp.lex.LexicalAnalyzerTest");
         System.out.println("================================================");
     }
 
     @Test
-    public void testTokenizeComment() {
+    public void testTokenizeComment()
+    {
         // Unenclosed comment.
         String code1 = "";
         LexicalAnalyzer lex1 = new LexicalAnalyzer(code1);
@@ -56,7 +58,8 @@ public class LexicalAnalyzerTest {
     }
 
     @Test
-    public void testTokenizeIdentifierOrKeyword() {
+    public void testTokenizeIdentifierOrKeyword()
+    {
         TokenType[] tokenTypes = {
             TokenType.KEYWORD_ALGORITMO,
             TokenType.KEYWORD_FIMALGORITMO,
@@ -182,7 +185,8 @@ public class LexicalAnalyzerTest {
     }
 
     @Test
-    public void testTokenizeNumber() {
+    public void testTokenizeNumber()
+    {
         // Valid integer number.
         String code1 = "123";
         LexicalAnalyzer lex1 = new LexicalAnalyzer(code1);
@@ -213,7 +217,8 @@ public class LexicalAnalyzerTest {
     }
 
     @Test
-    public void testTokenizeString() {
+    public void testTokenizeString()
+    {
         // Valid string.
         String code1 = "\"\"";
         LexicalAnalyzer lex1 = new LexicalAnalyzer(code1);
@@ -249,7 +254,8 @@ public class LexicalAnalyzerTest {
     }
 
     @Test
-    public void testTokenizeSymbol() {
+    public void testTokenizeSymbol()
+    {
         TokenType[] tokenTypes = {
             TokenType.SYMBOL_COLON,
             TokenType.SYMBOL_COMMA,
@@ -322,7 +328,8 @@ public class LexicalAnalyzerTest {
     }
 
     @Test
-    public void testRunLexicalAnalysis() {
+    public void testRunLexicalAnalysis()
+    {
 
     }
 

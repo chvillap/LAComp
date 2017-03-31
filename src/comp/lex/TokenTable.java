@@ -7,8 +7,8 @@ import java.util.Map;
  * Encapsulates a hash table that associates special token lexemes
  * (for keywords and symbols) to their token types.
  */
-public class TokenTable {
-
+public class TokenTable
+{
     private Map<String, TokenType> table;
 
     /**
@@ -151,7 +151,8 @@ public class TokenTable {
      * @param lexeme Search key (lexeme).
      * @return Token type's value, or null if the lexeme doesn't exist.
      */
-    public TokenType search(String lexeme) {
+    public TokenType search(String lexeme)
+    {
         return table.get(lexeme);
     }
 }

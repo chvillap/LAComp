@@ -4,8 +4,8 @@ package comp.lex;
  * Enumeration of all supported token types: identifiers, string literals,
  * integer numbers, real numbers, and several keywords and symbols.
  */
-public enum TokenType {
-
+public enum TokenType
+{
     IDENTIFIER,
     STRING_LITERAL,
     INTEGER_NUMBER,
