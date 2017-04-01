@@ -42,9 +42,9 @@ public class LexicalAnalyzer
             ++bufferPtr;
         }
         while (bufferPtr > target) {
+            --bufferPtr;
             if (currentChar() == '\n')
                 --lineNumber;
-            --bufferPtr;
         }
     }
 
@@ -131,7 +131,7 @@ public class LexicalAnalyzer
 
         // Leaving a comment unclosed causes a lexical error.
         if (character == '\0' || character == '\n') {
-            String message = "Linha " + lineNumber +
+            String message = "Linha " + (lineNumber + 1) +
                 ": comentario nao fechado";
             throw new LexicalException(message);
         }
@@ -343,7 +343,7 @@ public class LexicalAnalyzer
                         // going to return null and the quote character will be
                         // treated as an unexpected symbol, raising a lexical
                         // error.
-                        moveBufferPtr(-builder.length());
+                        moveBufferPtr(-builder.length() + 1);
                         state = STATE_END;
                     } else {
                         // Just keep adding the string characters to the builder.
@@ -390,19 +390,18 @@ public class LexicalAnalyzer
                     builder.append(character);
                     if (character == '<' || character == '>' ||
                         character == '.') {
-                        moveBufferPtr(1);
                         state = STATE_SECOND;
                     } else {
                         String lexeme = builder.toString();
                         TokenType type = tokenTable.search(lexeme);
                         if (type != null)
                             token = new Token(type, lexeme);
-                        moveBufferPtr(1);
                         state = STATE_END;
                         // If the lexeme doesn't represent any valid keyword
                         // or symbol, a lexical error will be raised (as
                         // assured by the null token that will be returned).
                     }
+                    moveBufferPtr(1);
                     break;
 
                 case STATE_SECOND:
@@ -427,6 +426,7 @@ public class LexicalAnalyzer
                     String lexeme = builder.toString();
                     TokenType type = tokenTable.search(lexeme);
                     token = new Token(type, lexeme);
+                    moveBufferPtr(1);
                     state = STATE_END;
                     break;
             }

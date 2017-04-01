@@ -10,6 +10,9 @@ import org.junit.runner.JUnitCore;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.io.File;
+
+import comp.LAComp;
 import comp.lex.LexicalAnalyzer;
 import comp.lex.LexicalException;
 import comp.lex.Token;
@@ -330,10 +333,42 @@ public class LexicalAnalyzerTest
     @Test
     public void testRunLexicalAnalysis()
     {
+        LAComp compiler = new LAComp();
 
+        // Get all files in the input directory.
+        File inputFolder = new File("testcases/comp/lex/input");
+        File[] inputFiles = inputFolder.listFiles();
+
+        // Get all files in the output directory.
+        File outputFolder = new File("testcases/comp/lex/output");
+        File[] outputFiles = outputFolder.listFiles();
+
+        for (int i = 0; i < inputFiles.length; ++i) {
+            // Get the input code and its expected outputs.
+            String inputCode = compiler.readFile(inputFiles[i].getPath());
+            String outputCode = compiler.readFile(outputFiles[i].getPath());
+
+            // Do the lexical analysis getting all messages.
+            // In the end, compare them to the expected outputs.
+            LexicalAnalyzer lexical = new LexicalAnalyzer(inputCode);
+            StringBuilder outputBuilder = new StringBuilder();
+            while (true) {
+                try {
+                    Token token = lexical.nextToken();
+                    if (token == null)
+                        break;
+                    outputBuilder.append(token.toString() + "\n");
+
+                } catch (LexicalException e) {
+                    outputBuilder.append(e.getMessage() + "\n");
+                }
+            }
+            assertEquals(outputCode, outputBuilder.toString());
+        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         JUnitCore.main("test.lex.LexicalAnalyzerTest");
     }
 }

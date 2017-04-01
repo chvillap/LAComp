@@ -20,12 +20,12 @@ import comp.lex.Token;
 public class LAComp
 {
     /**
-     * Reads the input code from a file.
+     * Reads some file and returns its contents as a string.
      *
      * @param path Path to the input file.
-     * @return Input code as a string.
+     * @return File contents as a string.
      */
-    public String readInputFile(String path)
+    public String readFile(String path)
     {
         // Read the file line by line and save the input code into a string.
         // If any exception occurs, print an error message and exit.
@@ -43,49 +43,22 @@ public class LAComp
     }
 
     /**
-     * Writes the output code to a file.
+     * Writes some string into a file.
      *
      * @param path Path to the output file.
+     * @param contents String to be written.
      */
-    public void writeOutputFile(String path, String code)
+    public void writeFile(String path, String contents)
     {
-        // Write the whole contents in the file at once.
+        // Write all the contents into the file at once.
         // If any exception occurs, print an error message and exit.
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path))) {
-            writer.write(code);
+            writer.write(contents);
 
         } catch (IOException e) {
             System.err.println("Error: Could not write file '" + path + "'");
             System.exit(1);
         }
-    }
-
-    /**
-     * Test function that runs a lexical analysis on some input code and gets
-     * the output messages (not the code!) in a string.
-     *
-     * @param inputCode Input code as a string.
-     * @return String of output messages.
-     */
-    public String runLexicalAnalysis(String inputCode)
-    {
-        LexicalAnalyzer lexical = new LexicalAnalyzer(inputCode);
-        StringBuilder outputBuilder = new StringBuilder();
-
-        while (true) {
-            try {
-                Token token = lexical.nextToken();
-                if (token == null)
-                    break;
-                // System.out.println(token.toString());
-                outputBuilder.append(token.toString());
-
-            } catch (LexicalException e) {
-                // System.err.println(e.getMessage());
-                outputBuilder.append(e.getMessage());
-            }
-        }
-        return outputBuilder.toString();
     }
 
     /**
@@ -102,14 +75,14 @@ public class LAComp
 
         // Instantiate the compiler and get the input code.
         LAComp compiler = new LAComp();
-        String inputCode = compiler.readInputFile(args[0]);
+        String inputCode = compiler.readFile(args[0]);
 
         // ...
 
         // Write all the output code at once in a file.
         // If any exception occurs, print an error message and exit.
         String outputCode = "/* (nothing for now) */";
-        compiler.writeOutputFile(args[1], outputCode);
+        compiler.writeFile(args[1], outputCode);
 
         System.out.println("Compilation finished");
     }
